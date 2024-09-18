@@ -1,0 +1,50 @@
+body { 
+    margin: 0;
+    background-color: #70163C;
+    width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6, {
+    font-family: "Rubik", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+    color: #2E0F15;
+    }
+
+p, a, li, input, button{
+    font-family: "Rubik", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    
+}
+
+input { 
+    background-color: #F7F0F5;
+    border: 1px solid #2E0F15; 
+    color: #2E0F15;
+    padding: .5rem;
+
+}
+
+button {
+    background-color: #E3C94E;
+    border: 1px solid #2E0F15; 
+    color: #2E0F15;
+    padding: .5rem;
+    font-weight: 600;
+
+}
+
+button:hover {
+    background-color: #70163C;
+    border: 1px solid #2E0F15; 
+    color: #F7F0F5;
+    cursor: pointer; 
+}
+
+.container {
+    background-color: #DECBB7;
+    padding: 2rem;
+    margin: 2rem;
+
+}
