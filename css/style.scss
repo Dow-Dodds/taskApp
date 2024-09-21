@@ -1,0 +1,115 @@
+// variables 
+$mainFont: "Rubik", "Poppins", Helvetica, sans-serif;
+$smallSpacing: 0.5rem;
+$spacing: 2rem;
+//colours
+$darkRed: #2E0F15;
+$white: #F7F0F5;
+$beige: #DECBB7;
+$yellow: #E3C94E;
+$magenta: #70163C;
+body { 
+    margin: 0;
+    background-color: #70163C;
+    width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: $mainFont;
+    font-weight: 900;
+    font-style: normal;
+    color: $darkRed;
+    }
+
+p, a, li, input, button{
+    font-family: $mainFont;
+    font-weight: 300;
+    font-style: normal;
+    
+}
+
+ul {
+    padding-inline-start: unset;
+}
+
+li {
+    margin-bottom: $spacing;
+    list-style: none;
+    border: 1px $darkRed solid;
+}
+
+input { 
+    background-color: $white;
+    border: 1px solid $darkRed;
+    color: $darkRed;
+    padding: $smallSpacing;
+
+}
+
+button {
+    background-color: $yellow;
+    border: 1px solid $darkRed;
+    color: $darkRed;
+    padding: $smallSpacing;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 1rem;
+}
+
+button:hover {
+    background-color: $magenta;
+    border: 1px solid $darkRed; 
+    color: $white;
+    cursor: pointer; 
+}
+
+.material-symbols-outlined {
+    font-size: 20px !important ;
+}
+
+.container {
+    background-color: $beige;
+    padding: $spacing;
+    margin: $spacing;
+
+}
+
+#task-form {
+    display: flex;
+    flex-wrap: wrap;
+
+    #alertWrapper {
+        background-color: $yellow;
+        border: 1px solid $darkRed; 
+        width: fit-content;
+        margin-top: 1rem;
+        padding: $smallSpacing;
+        display: none;
+    }
+}
+
+
+.task-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: $smallSpacing;
+    background-color: $white;
+
+    .taskActionWrapper {
+        display: flex;
+        flex-wrap: wrap;
+
+        .completeText {
+            text-decoration: line-through;
+        }
+    }
+
+}
+
+
+
+

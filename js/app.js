@@ -15,28 +15,51 @@ function renderToDo() {
     taskList.innerHTML = '';
 
     todo.forEach(task => {
-        let li = document.createElement('li');
-        let div = document.createElement('div'); 
-        div.id = task.id
-        let taskDescription = document.createElement('p');
-        taskDescription.textContent = task.task;
+        const li = document.createElement('li');
 
-        //create delete element 
-        let deleteButton = document.createElement('button');
-        deleteButton.id = 'delete' + task.id
-        deleteButton.textContent= 'Delete';
+        if (task.complete === false) { 
+            li.innerHTML = `
+                <div class="task-wrapper">
+                    <p id="taskLine-${task.id}">${task.task}</p>
+                    <div class="taskActionWrapper">  
+                            <button id="complete-${task.id}" class="complete-button"> 
+                                Mark as Complete
+                            </button>           
+                            <button id="delete-${task.id}" class="delete-button"> 
+                                Delete <span class="material-symbols-outlined">Delete</span>
+                            </button> 
+                    </div> 
+                </div>
+            `;
+        } else if (task.complete === true)  {
+            li.innerHTML = `
+            <div class="task-wrapper">
+                <p class="completeText" id="taskLine-${task.id}">${task.task}</p>
+                <div class="taskActionWrapper">             
+                    <button id="complete-${task.id}" class="complete-button"> 
+                               <span class="material-symbols-outlined"> verified </span>
+                    </button>
+                    <button id="delete-${task.id}" class="delete-button"> 
+                        Delete <span class="material-symbols-outlined">Delete</span>
+                    </button> 
+                </div> 
+            </div>
+        `;
+        }
 
-          //add event listener to delete button 
-        deleteButton.addEventListener('click', function() {
-            deleteTask(task.id)
+        //add delete button event listener 
+        li.querySelector('.delete-button').addEventListener('click', () => {
+            deleteTask(task.id);
         })
 
-        div.appendChild(taskDescription);
-        div.appendChild(deleteButton);
-    
-        li.appendChild(div);
-    
+        li.querySelector('.complete-button').addEventListener('click', () => {
+            completeTask(task.id);
+        })
+
+
+        //apend li to the list 
         taskList.appendChild(li);
+       
     })
    
 
@@ -69,7 +92,8 @@ function CreateToDoItems() {
 
             let newTask = {
                 id:todo.length + 1, 
-                task: taskInput.value
+                task: taskInput.value,
+                complete: false,
             };
             console.log("todoarray" ,todo); 
             todo.push(newTask);
@@ -91,3 +115,25 @@ taskForm.addEventListener('submit', (event) => {
     CreateToDoItems() ;
   
 })
+
+
+function deleteTask(taskid) {
+    let taskIndex = todo.findIndex((obj) => obj.taskid === taskid);
+    todo.splice(taskIndex, 1);
+    renderToDo();
+    saveToLocalStorage();
+    console.log(todo, taskid);
+   
+} 
+
+function completeTask(taskid) {
+
+    todo.forEach(task => {
+        if (task.id === taskid) {
+        task.complete = true;
+        }
+    });
+    saveToLocalStorage();
+    renderToDo();
+    console.log("complete tast",taskid, todo)
+}

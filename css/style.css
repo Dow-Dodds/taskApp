@@ -1,0 +1,94 @@
+body {
+  margin: 0;
+  background-color: #70163C;
+  width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Rubik", "Poppins", Helvetica, sans-serif;
+  font-weight: 900;
+  font-style: normal;
+  color: #2E0F15;
+}
+
+p, a, li, input, button {
+  font-family: "Rubik", "Poppins", Helvetica, sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+ul {
+  padding-inline-start: unset;
+}
+
+li {
+  margin-bottom: 2rem;
+  list-style: none;
+  border: 1px #2E0F15 solid;
+}
+
+input {
+  background-color: #F7F0F5;
+  border: 1px solid #2E0F15;
+  color: #2E0F15;
+  padding: 0.5rem;
+}
+
+button {
+  background-color: #E3C94E;
+  border: 1px solid #2E0F15;
+  color: #2E0F15;
+  padding: 0.5rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 1rem;
+}
+
+button:hover {
+  background-color: #70163C;
+  border: 1px solid #2E0F15;
+  color: #F7F0F5;
+  cursor: pointer;
+}
+
+.material-symbols-outlined {
+  font-size: 20px !important;
+}
+
+.container {
+  background-color: #DECBB7;
+  padding: 2rem;
+  margin: 2rem;
+}
+
+#task-form {
+  display: flex;
+  flex-wrap: wrap;
+}
+#task-form #alertWrapper {
+  background-color: #E3C94E;
+  border: 1px solid #2E0F15;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  display: none;
+}
+
+.task-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  background-color: #F7F0F5;
+}
+.task-wrapper .taskActionWrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+.task-wrapper .taskActionWrapper .completeText {
+  text-decoration: line-through;
+}
