@@ -25,6 +25,7 @@ p, a, li, input, button{
     font-family: $mainFont;
     font-weight: 300;
     font-style: normal;
+    transition: all 0.3s ease-in-out;
     
 }
 
@@ -56,6 +57,7 @@ button {
     align-items: center;
     justify-content: center;
     margin-left: 1rem;
+    transition: all 0.3s ease-in-out;
 }
 
 button:hover {
@@ -63,6 +65,12 @@ button:hover {
     border: 1px solid $darkRed; 
     color: $white;
     cursor: pointer; 
+    transition: all 0.3s ease-in-out;
+
+}
+
+.hidden {
+    display: none;
 }
 
 .material-symbols-outlined {
@@ -101,6 +109,8 @@ button:hover {
 
     .completeText {
         text-decoration: line-through;
+        color: #70163C !important;
+        transition: all 1s ease-in-out;
     }
 
     .taskActionWrapper {

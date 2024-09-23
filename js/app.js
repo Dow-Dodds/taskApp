@@ -9,6 +9,12 @@ let todo = JSON.parse(localStorage.getItem("todo-list")) || [];
 function saveToLocalStorage() {
     localStorage.setItem("todo-list", JSON.stringify(todo));
 }
+
+function updateToDo(){
+    renderToDo();
+    saveToLocalStorage();
+    
+}
 //function to render to do list if there are already iems saved in tofo array 
 function renderToDo() {
     //clear list 
@@ -17,45 +23,42 @@ function renderToDo() {
     todo.forEach(task => {
         const li = document.createElement('li');
 
-        if (task.complete === false) { 
             li.innerHTML = `
                 <div class="task-wrapper">
                     <div id="taskText-${task.id}">
-                        <p id="taskLine-${task.id}">${task.task}</p>
+                        <p class="${task.complete ? 'completeText' : ''}" id="taskLine-${task.id}">${task.task}</p>
                     </div>
                     <div class="taskActionWrapper">  
-                            <button id="edit-${task.id}" class="edit-button"> 
-                                Edit <span class="material-symbols-outlined">edit</span>
-                            </button>   
-                            <button id="complete-${task.id}" class="complete-button"> 
-                                Mark as Complete
-                            </button>           
-                            <button id="delete-${task.id}" class="delete-button"> 
-                                Delete <span class="material-symbols-outlined">Delete</span>
-                            </button> 
+                            ${!task.complete ? `
+                                <button id="edit-${task.id}" class="edit-button" aria-label="Edit task button"> 
+                                    Edit <span class="material-symbols-outlined">edit</span>
+                                </button>   
+                                <button id="complete-${task.id}" class="complete-button" aria-label="Complete task button"> 
+                                    Mark as Complete
+                                </button>           
+                                <button id="delete-${task.id}" class="delete-button" aria-label="Delete task button"> 
+                                    Delete <span class="material-symbols-outlined">Delete</span>
+                                </button> 
+                            
+                            ` : `
+                                <button id="edit-${task.id}" class="edit-button hidden" aria-label="Edit task button"> 
+                                    Edit <span class="material-symbols-outlined">edit</span>
+                                </button>  
+                                <button id="complete-${task.id}" class="complete-button"> 
+                                    <span class="material-symbols-outlined"> verified </span>
+                                </button>
+                                <button id="delete-${task.id}" class="delete-button"> 
+                                    Delete <span class="material-symbols-outlined">Delete</span>
+                                </button> 
+                            `}
+                           
                     </div> 
                 </div>
             `;
 
-            li.querySelector('.edit-button').addEventListener('click', () => {
+        li.querySelector('.edit-button').addEventListener('click', () => {
                 editTask(task.id);
-            })
-
-        } else if (task.complete === true)  {
-            li.innerHTML = `
-            <div class="task-wrapper">
-                <p class="completeText" id="taskLine-${task.id}">${task.task}</p>
-                <div class="taskActionWrapper">             
-                    <button id="complete-${task.id}" class="complete-button"> 
-                               <span class="material-symbols-outlined"> verified </span>
-                    </button>
-                    <button id="delete-${task.id}" class="delete-button"> 
-                        Delete <span class="material-symbols-outlined">Delete</span>
-                    </button> 
-                </div> 
-            </div>
-        `;
-        }
+        })
 
         //add delete button event listener 
         li.querySelector('.delete-button').addEventListener('click', () => {
@@ -81,7 +84,7 @@ renderToDo();
 
 //create item 
 function CreateToDoItems() {
-    if (taskInput.value === "") {
+    if (taskInput.value.trim() === "") {
         alertWrapper.style.display="block";
         alertWrapper.innerHTML='<p>Please enter your todo text!</p>'
     } else {
@@ -102,7 +105,7 @@ function CreateToDoItems() {
             alertWrapper.style.display="none";
 
             let newTask = {
-                id:todo.length + 1, 
+                id:Date.now(), 
                 task: taskInput.value,
                 complete: false,
             };
@@ -113,8 +116,7 @@ function CreateToDoItems() {
 
        
 
-        saveToLocalStorage();  // Save updated array to localStorage
-        renderToDo();
+        updateToDo()
         taskInput.value = '';
         }
     }
@@ -132,33 +134,24 @@ function saveChanges(taskIndex, taskid) {
     todo[taskIndex].task = newTaskValue;
     console.log("new value", taskIndex, newTaskValue, todo);
     console.log("helloe" ,todo[taskIndex]);
-    renderToDo();
-    saveToLocalStorage();
+    updateToDo()
 }
 
 function editTask(taskid) {
     let taskTextWrapper = document.getElementById("taskText-" + taskid)
     let taskIndex = todo.findIndex(obj => obj.id == taskid)
-
     let originalTask = todo[taskIndex].task
     console.log("task",originalTask, todo)
     taskTextWrapper.innerHTML = `
         <input type="text" id="taskInput-${taskid}" placeholder="${originalTask}... " value="" />
-        <button onclick="saveChanges(${taskIndex}, ${taskid})">Save</button> 
+        <button onclick="saveChanges(${taskIndex}, ${taskid})" aria-label="Save changes button">Save</button> 
     `
-
-   
 } 
 
 function deleteTask(taskid) {
     let taskIndex = todo.findIndex(obj => obj.id == taskid)
-    console.log("delete task index", taskIndex);
-
     todo.splice(taskIndex, 1);
-    renderToDo();
-    saveToLocalStorage();
-    console.log(todo, taskid);
-   
+    updateToDo();
 } 
 
 function completeTask(taskid) {
@@ -168,7 +161,9 @@ function completeTask(taskid) {
         task.complete = true;
         }
     });
-    saveToLocalStorage();
-    renderToDo();
+    
+    updateToDo();
     console.log("complete tast",taskid, todo)
 }
+
+console.log("date now test", Date.now())
