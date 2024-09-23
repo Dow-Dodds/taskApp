@@ -20,8 +20,13 @@ function renderToDo() {
         if (task.complete === false) { 
             li.innerHTML = `
                 <div class="task-wrapper">
-                    <p id="taskLine-${task.id}">${task.task}</p>
+                    <div id="taskText-${task.id}">
+                        <p id="taskLine-${task.id}">${task.task}</p>
+                    </div>
                     <div class="taskActionWrapper">  
+                            <button id="edit-${task.id}" class="edit-button"> 
+                                Edit <span class="material-symbols-outlined">edit</span>
+                            </button>   
                             <button id="complete-${task.id}" class="complete-button"> 
                                 Mark as Complete
                             </button>           
@@ -31,6 +36,11 @@ function renderToDo() {
                     </div> 
                 </div>
             `;
+
+            li.querySelector('.edit-button').addEventListener('click', () => {
+                editTask(task.id);
+            })
+
         } else if (task.complete === true)  {
             li.innerHTML = `
             <div class="task-wrapper">
@@ -55,6 +65,7 @@ function renderToDo() {
         li.querySelector('.complete-button').addEventListener('click', () => {
             completeTask(task.id);
         })
+
 
 
         //apend li to the list 
@@ -116,9 +127,33 @@ taskForm.addEventListener('submit', (event) => {
   
 })
 
+function saveChanges(taskIndex, taskid) {
+    newTaskValue = document.getElementById("taskInput-" + taskid).value;
+    todo[taskIndex].task = newTaskValue;
+    console.log("new value", taskIndex, newTaskValue, todo);
+    console.log("helloe" ,todo[taskIndex]);
+    renderToDo();
+    saveToLocalStorage();
+}
+
+function editTask(taskid) {
+    let taskTextWrapper = document.getElementById("taskText-" + taskid)
+    let taskIndex = todo.findIndex(obj => obj.id == taskid)
+
+    let originalTask = todo[taskIndex].task
+    console.log("task",originalTask, todo)
+    taskTextWrapper.innerHTML = `
+        <input type="text" id="taskInput-${taskid}" placeholder="${originalTask}... " value="" />
+        <button onclick="saveChanges(${taskIndex}, ${taskid})">Save</button> 
+    `
+
+   
+} 
 
 function deleteTask(taskid) {
-    let taskIndex = todo.findIndex((obj) => obj.taskid === taskid);
+    let taskIndex = todo.findIndex(obj => obj.id == taskid)
+    console.log("delete task index", taskIndex);
+
     todo.splice(taskIndex, 1);
     renderToDo();
     saveToLocalStorage();

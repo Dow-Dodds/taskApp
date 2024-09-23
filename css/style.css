@@ -85,10 +85,10 @@ button:hover {
   padding: 0.5rem;
   background-color: #F7F0F5;
 }
+.task-wrapper .completeText {
+  text-decoration: line-through;
+}
 .task-wrapper .taskActionWrapper {
   display: flex;
   flex-wrap: wrap;
-}
-.task-wrapper .taskActionWrapper .completeText {
-  text-decoration: line-through;
 }

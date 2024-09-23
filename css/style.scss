@@ -99,17 +99,22 @@ button:hover {
     padding: $smallSpacing;
     background-color: $white;
 
+    .completeText {
+        text-decoration: line-through;
+    }
+
     .taskActionWrapper {
         display: flex;
         flex-wrap: wrap;
 
-        .completeText {
-            text-decoration: line-through;
-        }
+        // button{
+        //     .material-symbols-outlined {
+        //         margin-left: $smallSpacing;
+        //     }
+        // }
+
+      
     }
-
 }
-
-
 
 
